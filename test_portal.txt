@@ -1,0 +1,29 @@
+# Portal frame test
+# 2 columns + 1 beam, pinned bases, horizontal load at top-left
+# E=200e9, A=0.02, I=2e-4, H=4m, L=6m, F=50kN horizontal
+
+[NODES]
+4
+1  0.0  0.0
+2  0.0  4.0
+3  6.0  4.0
+4  6.0  0.0
+
+[MATERIALS]
+1
+1  0.02  2e-4  200e9
+
+[CONNECTIVITY]
+3
+1  1  2  1  1
+2  2  3  1  1
+3  3  4  1  1
+
+[SUPPORTS]
+2
+1  1  1  1
+4  1  1  1
+
+[LOADS]
+1
+2  50000.0  0.0  0.0

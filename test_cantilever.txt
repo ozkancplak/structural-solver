@@ -1,0 +1,26 @@
+# Cantilever beam test
+# Single element, fixed at left (node 1), point load at right (node 2)
+# E=200e9 Pa, A=0.01 m^2, I=1e-4 m^4, L=4 m, P=-10 kN (downward)
+# Analytical: v_tip = PL^3/(3EI) = 10000*64/(3*200e9*1e-4) = 1.0667e-2 m
+#             theta_tip = PL^2/(2EI) = 10000*16/(2*200e9*1e-4) = 4.0e-3 rad
+
+[NODES]
+2
+1  0.0  0.0
+2  4.0  0.0
+
+[MATERIALS]
+1
+1  0.01  1e-4  200e9
+
+[CONNECTIVITY]
+1
+1  1  2  1  1
+
+[SUPPORTS]
+1
+1  1  1  1
+
+[LOADS]
+1
+2  0.0  -10000.0  0.0

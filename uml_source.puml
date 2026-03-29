@@ -1,0 +1,82 @@
+@startuml matrix_lib
+
+skinparam classAttributeIconSize 0
+skinparam classFontName Helvetica
+skinparam classFontSize 11
+skinparam classHeaderBackgroundColor #1B3A6B
+skinparam classFontColor #FFFFFF
+skinparam classAttributeFontColor #333333
+skinparam classAttributeFontSize 10
+skinparam classBorderColor #2E6DA4
+skinparam classBackgroundColor #FFFFFF
+skinparam arrowColor #4A4A4A
+skinparam arrowFontSize 9
+skinparam arrowFontColor #4A4A4A
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 80
+
+class DenseMatrix {
+  - rows : int
+  - cols : int
+  - symmetric : bool
+  - _data : list[list[float]]
+  --
+  + __getitem__(i, j) : float
+  + __setitem__(i, j, value)
+  + add(other) : DenseMatrix
+  + scale(alpha) : DenseMatrix
+  + multiply(other) : DenseMatrix
+  + transpose() : DenseMatrix
+  + mat_vec(v) : list
+  + solve(b) : list
+  + copy() : DenseMatrix
+  + frobenius_norm() : float
+}
+
+class BandedMatrix {
+  - n : int
+  - bandwidth : int
+  - _data : list[list[float]]
+  - _factored : bool
+  --
+  + __getitem__(i, j) : float
+  + __setitem__(i, j, value)
+  + add_to(i, j, value)
+  + factorize()
+  + solve(b) : list
+  + to_dense() : list
+}
+
+class SkylineMatrix {
+  - n : int
+  - _height : list[int]
+  - _col : list[list[float]]
+  - _factored : bool
+  --
+  + __getitem__(i, j) : float
+  + __setitem__(i, j, value)
+  + add_to(i, j, value)
+  + expand_profile(i, j)
+  + factorize()
+  + solve(b) : list
+  + to_dense() : list
+  + storage_size() : int
+}
+
+class LinearSolver {
+  - method : str
+  - SUPPORTED_METHODS : tuple
+  --
+  + solve(K_matrix, b) : list
+  + {static} solve_dense(K_list, b) : list
+  + {static} solve_banded(K_banded, b) : list
+  + {static} solve_skyline(K_skyline, b) : list
+}
+
+LinearSolver ..> DenseMatrix   : <<uses>>
+LinearSolver ..> BandedMatrix  : <<uses>>
+LinearSolver ..> SkylineMatrix : <<uses>>
+
+@enduml
