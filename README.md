@@ -9,7 +9,7 @@ A core component of this assignment is the custom-built matrix engine (`matrix_l
 - **Python 3.x**
 - No external libraries (like `numpy` or `scipy`) are required to run the main analysis engines.
 
-## 🚀 How to Run the Program
+## How to Run the Program
 
 You can use the program in two primary ways: verifying standard homework problems or analyzing custom structures.
 
